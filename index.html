@@ -1,333 +1,350 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
+  <title>Scientific Calculator</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Advanced Math Solver</title>
-  <style type="text/css" media="all">
-    .cal{
-      padding: 40px;
-      height: 85vh;
-      width: 80vw;
-      border-radius: 10px;
-      margin: auto;
-      box-shadow: 0px 0px 8px 10px  #007BF5;
-    }
-    
-    .inpuS{
-      margin-top: -22px;
-      height: 100px;
-      margin-left: -30px;
-      width: 90vw;
-      background-color: #007BF5;
-      box-shadow: 0px 1.5px 0px 0px #007BF5;
-    }
-    
-    .screen{
-      height: 90px;
-      width: 43vw;
-      margin-top: 4px;
-      margin-left: 2px;
-      font-weight: bold;
-      font-size: 30px;
-      
-    }
-    
-    .firstScreen{
-      box-shadow: 0px 1.5px 0px 0px #007BF5;
-      height: 40vh;
-      width: 80vw;
-    }
-    
-    .firstScreen h1 {
-      font-size: 40px;
-    }
-    
-    .button {
-      margin-top: 68px;
-      height: 30px; 
-      border-radius: 9px; 
-      box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2); 
-      background-color: #007BF5; 
-      color: white; 
-      font-weight: bold; 
-      padding: 0 15px; 
-      border: none; 
-      cursor: pointer; 
-    }
-
-    .button-container {
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+    body {
+      background: #23272e;
+      min-height: 100vh;
       display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      gap: 28px;
-      margin-top: 90px;
-      margin-left: 10px;
-    }
-
-    .button {
-      margin: 0;
-    }
-    
-    .button:hover { 
-      background-color: white;
-      color: #007BF5; 
-    }
-    
-    .downButton{
-      display: flex;
-      justify-content: center;
       align-items: center;
-      flex-wrap: wrap;
-      row-gap: 20px;
-      column-gap: 20px;
-      margin-top: 30px;
-      box-shadow: 0px 1.5px 0px 0px #1f2422;
-      margin-top: 50px;
+      justify-content: center;
     }
-    
-    .button1 {
-      height: 30px; 
-      border-radius: 5px; 
-      box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2); 
-      background-color: #1f2422; 
-      color: white; 
-      font-weight: bold; 
-      padding: 0 15px;
-      border: none; 
-      cursor: pointer; 
+    .calculator {
+      background: #181c20;
+      border-radius: 16px;
+      box-shadow: 0 6px 24px #000a, 0 1.5px 0 #007BF5 inset;
+      padding: 32px 24px 24px 24px;
+      max-width: 480px;
+      width: 100%;
     }
-
-    .button1:hover { 
-      background-color: white;
-      color: #1f2422; 
+    .screen-container {
+      background: #b4c7b4;
+      border-radius: 8px;
+      margin-bottom: 14px;
+      padding: 12px;
+      box-shadow: 0 2px 8px #0002 inset;
     }
-    
-    .numbAsym{
-      display: flex;
-      justify-content: space-between;
+    .screen {
+      width: 100%;
+      background: transparent;
+      border: none;
+      outline: none;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 2.1rem;
+      text-align: right;
+      color: #1a3c1a;
+      letter-spacing: 1px;
+      margin-bottom: 2px;
     }
-    
-    .numbers{
-      display: flex;
-      flex-wrap: wrap;
-      border: 2px solid  #1f2422;
-      height: 27vh;
-      width: 45vw;
-      column-gap: 15px;
-      margin-top: 30px;
-      padding: 20px;
+    .output {
+      font-family: 'Share Tech Mono', monospace;
+      color: #007BF5;
+      font-size: 1.2rem;
+      text-align: right;
+      min-height: 1.3em;
     }
-
-    .numb{
-      height: 40px; 
-      border-radius: 5px; 
-      box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2); 
-      background-color: #1f2422; 
-      color: white; 
-      font-weight: bold; 
-      padding: 0 15px;
-      border: none; 
-      cursor: pointer; 
+    .button-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      grid-gap: 10px;
+      justify-content: center;
     }
-    .numb:hover { 
-      background-color: white;
-      color: #1f2422; 
+    .btn {
+      border: none;
+      border-radius: 8px;
+      background: #23272e;
+      color: #fff;
+      font-size: 1.1rem;
+      font-family: 'Share Tech Mono', monospace;
+      padding: 15px 0;
+      box-shadow: 0 2px 0 #0008, 0 1.5px 0 #fff1 inset;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      user-select: none;
     }
-    
-    .symboles{
-      display: flex;
-      flex-wrap: wrap;
-      border: 2px solid  #1f2422;
-      height: 27vh;
-      width: 45vw;
-      gap: 10px;
-      column-gap: 15px;
-      row-gap: 10px;
-      grid-row: 10px;
-      margin-top: 30px;
-      padding: 20px;
+    .btn:active {
+      background: #007BF5;
+      color: #fff;
     }
-    
-    .symbo{
-      height: 40px; 
-      border-radius: 5px; 
-      box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2); 
-      background-color: #1f2422; 
-      color: white; 
-      font-weight: bold; 
-      padding:  15px;
-      border: none; 
-      cursor: pointer; 
+    .btn.func { background: #007BF5; color: #fff; }
+    .btn.mem { background: #3d4e5a; color: #fff; font-size: 0.95rem;}
+    .btn.equal { background: #2ecc40; color: #fff; font-weight: bold; }
+    .btn.clear { background: #e74c3c; color: #fff; }
+    .btn.const { background: #f39c12; color: #fff; }
+    .btn.calc { background: #16a085; color: #fff; font-size: 1.1rem;}
+    .history {
+      background: #23272e;
+      color: #b4c7b4;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 0.95rem;
+      border-radius: 8px;
+      margin-top: 10px;
+      padding: 8px 10px;
+      max-height: 60px;
+      overflow-y: auto;
     }
-    .symbo:hover { 
-      background-color: white;
-      color: #1f2422; 
+    @media (max-width: 600px) {
+      .calculator { max-width: 99vw; padding: 10px 2vw; }
+      .button-grid { grid-template-columns: repeat(3, 1fr); }
     }
-    
   </style>
 </head>
 <body>
-  <div class="cal">
-    <div class="firstScreen">
-      <div class="inpuS">
-<input type="text" placeholder="Enter number" class="screen" name="inputNum" id="inputNum">
-<input type="text"  placeholder="Output"     class="screen" name="outputNum" id="outputNum" readonly>
+  <div class="calculator">
+    <div class="screen-container">
+      <input type="text" id="inputNum" class="screen" placeholder="0" autocomplete="off">
+      <div id="outputNum" class="output"></div>
+    </div>
+    <div class="button-grid">
+      <button class="btn mem" data-mem="MC">MC</button>
+      <button class="btn mem" data-mem="MR">MR</button>
+      <button class="btn mem" data-mem="M+">M+</button>
+      <button class="btn mem" data-mem="M-">M-</button>
+      <button class="btn clear">AC</button>
+      <button class="btn const" id="btnConstants">Const</button>
 
-      </div>
-      <h1>Advanced Math Solver for  &nbsp;&nbsp;&nbsp;&nbsp; Engineers & Students</h1>
-      <div class="button-container">
-        <button class="button" type="button">Shift</button>
-        <button class="button" type="button">Alpha</button>
-        <button class="button" type="button">Replay</button>
-        <button class="button" type="button">Mode setup</button>
-        <button class="button" type="button">On</button>
-      </div>
+      <button class="btn func" data-func="sin">sin</button>
+      <button class="btn func" data-func="cos">cos</button>
+      <button class="btn func" data-func="tan">tan</button>
+      <button class="btn func" data-func="ln">ln</button>
+      <button class="btn func" data-func="log">log</button>
+      <button class="btn func" data-func="sqrt">√</button>
+
+      <button class="btn func" data-func="asin">sin⁻¹</button>
+      <button class="btn func" data-func="acos">cos⁻¹</button>
+      <button class="btn func" data-func="atan">tan⁻¹</button>
+      <button class="btn func" data-func="pow2">x²</button>
+      <button class="btn func" data-func="inv">x⁻¹</button>
+      <button class="btn func" data-func="fact">n!</button>
+
+      <button class="btn calc" id="btnDiff">d/dx</button>
+      <button class="btn calc" id="btnInt">∫</button>
+      <button class="btn func" data-func="abs">|x|</button>
+      <button class="btn func" data-func="exp">exp</button>
+      <button class="btn" data-value="π">π</button>
+      <button class="btn" data-value="e">e</button>
+
+      <button class="btn" data-value="7">7</button>
+      <button class="btn" data-value="8">8</button>
+      <button class="btn" data-value="9">9</button>
+      <button class="btn" data-value="(">(</button>
+      <button class="btn" data-value=")">)</button>
+      <button class="btn" data-value=",">,</button>
+
+      <button class="btn" data-value="4">4</button>
+      <button class="btn" data-value="5">5</button>
+      <button class="btn" data-value="6">6</button>
+      <button class="btn" data-value="*">×</button>
+      <button class="btn" data-value="/">÷</button>
+      <button class="btn" data-value="ANS">ANS</button>
+
+      <button class="btn" data-value="1">1</button>
+      <button class="btn" data-value="2">2</button>
+      <button class="btn" data-value="3">3</button>
+      <button class="btn" data-value="+">+</button>
+      <button class="btn" data-value="-">-</button>
+      <button class="btn equal">=</button>
+
+      <button class="btn" data-value="0">0</button>
+      <button class="btn" data-value=".">.</button>
     </div>
-    <div class="downButton">
-      <button class="button1" type="button">x⁻¹</button>
-      <button class="button1" type="button">√</button>
-      <button class="button1" type="button">x²</button>
-      <button class="button1" type="button">log</button>
-      <button class="button1" type="button">ln</button>
-      <button class="button1" type="button">sin</button>
-      <button class="button1" type="button">cos</button>
-      <button class="button1" type="button">tab</button>
-      <button class="button1" type="button">sin⁻¹</button>
-      <button class="button1" type="button">cos⁻¹</button>
-      <button class="button1" type="button">tan⁻¹</button>
-    </div>
-    <div class="numbAsym">
-      <div class="numbers">
-        <button class="numb" type="button">0</button>
-        <button class="numb" type="button">1</button>
-        <button class="numb" type="button">2</button>
-        <button class="numb" type="button">3</button>
-        <button class="numb" type="button">4</button>
-        <button class="numb" type="button">5</button>
-        <button class="numb" type="button">6</button>
-        <button class="numb" type="button">7</button>
-        <button class="numb" type="button">8</button>
-        <button class="numb" type="button">9</button>
-        <button class="numb" type="button">.</button>
-      </div>
-      <div class="symboles">
-        <button class="symbo" type="button">+</button>
-        <button class="symbo" type="button">-</button>
-        <button class="symbo" type="button">*</button>
-        <button class="symbo" type="button">÷</button>
-        <button class="symbo" type="button">AC</button>
-        <button class="symbo" type="button">ANS</button>
-<button class="symbo" type="button">=</button>
-      </div>
-    </div>
+    <div class="history" id="history"></div>
   </div>
-  
-  
-<script>
-  const inputBox = document.getElementById("inputNum");
-  const outputBox = document.getElementById("outputNum");
+  <script>
+    // --- CONSTANTS ---
+    const constants = {
+      'π (Pi)': Math.PI,
+      'e (Euler)': Math.E,
+      'c (speed of light)': 299792458,
+      'G (gravitational)': 6.67430e-11,
+      'h (Planck)': 6.62607015e-34,
+      'R (gas const)': 8.314462618,
+      'Na (Avogadro)': 6.02214076e23,
+      'k (Boltzmann)': 1.380649e-23
+    };
 
-  let lastAnswer = "";
+    // --- STATE ---
+    const inputBox = document.getElementById("inputNum");
+    const outputBox = document.getElementById("outputNum");
+    const historyBox = document.getElementById("history");
+    let lastAnswer = "";
+    let memory = 0;
+    let history = [];
 
-  // Numbers & symbols
-  document.querySelectorAll(".numb, .symbo").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const val = btn.innerText;
-
-      if (val === "AC") {
-        inputBox.value = "";
-        outputBox.value = "";
-      } else if (val === "ANS") {
-        inputBox.value += lastAnswer;
-      } else if (val === "=") {
-        try {
-          const result = eval(inputBox.value);
-          outputBox.value = result;
-          lastAnswer = result;
-        } catch {
-          outputBox.value = "Invalid!";
+    // --- BUTTON HANDLERS ---
+    document.querySelectorAll(".btn[data-value]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        let val = btn.dataset.value;
+        if (val === "ANS") {
+          inputBox.value += lastAnswer;
+        } else if(val === "π") {
+          inputBox.value += Math.PI;
+        } else if(val === "e") {
+          inputBox.value += Math.E;
+        } else {
+          inputBox.value += val;
         }
-      } else {
-        inputBox.value += val;
-      }
+      });
     });
-  });
 
-  // Advanced functions
-  document.querySelectorAll(".button1").forEach(btn => {
-    btn.addEventListener("click", () => {
-      let val = inputBox.value;
-      let result;
-
-      switch (btn.innerText) {
-        case "x⁻¹":
-          result = 1 / parseFloat(val);
-          break;
-        case "√":
-          result = Math.sqrt(parseFloat(val));
-          break;
-        case "x²":
-          result = Math.pow(parseFloat(val), 2);
-          break;
-        case "log":
-          result = Math.log10(parseFloat(val));
-          break;
-        case "ln":
-          result = Math.log(parseFloat(val));
-          break;
-        case "sin":
-          result = Math.sin(toRadians(val));
-          break;
-        case "cos":
-          result = Math.cos(toRadians(val));
-          break;
-        case "tab":
-          result = Math.tan(toRadians(val));
-          break;
-        case "sin⁻¹":
-          result = toDegrees(Math.asin(parseFloat(val)));
-          break;
-        case "cos⁻¹":
-          result = toDegrees(Math.acos(parseFloat(val)));
-          break;
-        case "tan⁻¹":
-          result = toDegrees(Math.atan(parseFloat(val)));
-          break;
-      }
-
-      if (!isNaN(result)) {
-        outputBox.value = result.toFixed(5);
-        lastAnswer = outputBox.value;
-      } else {
-        outputBox.value = "Invalid!";
-      }
+    // --- FUNCTION BUTTONS ---
+    document.querySelectorAll(".btn.func").forEach(btn => {
+      btn.addEventListener("click", () => {
+        let val = inputBox.value;
+        let func = btn.dataset.func;
+        let num = parseFloat(val);
+        let result;
+        try {
+          switch (func) {
+            case "sin": result = Math.sin(toRadians(num)); break;
+            case "cos": result = Math.cos(toRadians(num)); break;
+            case "tan": result = Math.tan(toRadians(num)); break;
+            case "asin": result = toDegrees(Math.asin(num)); break;
+            case "acos": result = toDegrees(Math.acos(num)); break;
+            case "atan": result = toDegrees(Math.atan(num)); break;
+            case "log": result = Math.log10(num); break;
+            case "ln": result = Math.log(num); break;
+            case "sqrt": result = Math.sqrt(num); break;
+            case "inv": result = 1 / num; break;
+            case "pow2": result = Math.pow(num, 2); break;
+            case "fact": result = factorial(num); break;
+            case "exp": result = Math.exp(num); break;
+            case "abs": result = Math.abs(num); break;
+          }
+        } catch {
+          result = "Invalid!";
+        }
+        if (result !== undefined && !isNaN(result)) {
+          outputBox.textContent = result.toString().replace(/\.?0+$/, "");
+          lastAnswer = outputBox.textContent;
+          addToHistory(`${func}(${val})`, outputBox.textContent);
+        } else if(typeof result === "string") {
+          outputBox.textContent = result;
+        } else {
+          outputBox.textContent = "Invalid!";
+        }
+      });
     });
-  });
 
- 
-  inputBox.addEventListener("keydown", (e) => {
-    if (e.key === "Enter") {
+    // --- MEMORY BUTTONS ---
+    document.querySelectorAll(".btn.mem").forEach(btn => {
+      btn.addEventListener("click", () => {
+        let op = btn.dataset.mem;
+        let val = parseFloat(inputBox.value) || 0;
+        switch (op) {
+          case "MC": memory = 0; break;
+          case "MR": inputBox.value += memory; break;
+          case "M+": memory += val; break;
+          case "M-": memory -= val; break;
+        }
+      });
+    });
+
+    // --- CLEAR BUTTON ---
+    document.querySelector(".btn.clear").onclick = () => {
+      inputBox.value = "";
+      outputBox.textContent = "";
+    };
+
+    // --- EQUAL BUTTON ---
+    document.querySelector(".btn.equal").onclick = () => {
       try {
-        const result = eval(inputBox.value);
-        outputBox.value = result;
-        lastAnswer = result;
+        let expr = inputBox.value
+          .replace(/×/g, '*')
+          .replace(/÷/g, '/')
+          .replace(/\^/g, '**')
+          .replace(/π/g, Math.PI)
+          .replace(/e/g, Math.E);
+        let result = eval(expr);
+        if (typeof result === "number" && isFinite(result)) {
+          outputBox.textContent = result.toString();
+          lastAnswer = result;
+          addToHistory(expr, result);
+        } else {
+          outputBox.textContent = "Invalid!";
+        }
       } catch {
-        outputBox.value = "Invalid!";
+        outputBox.textContent = "Invalid!";
       }
+    };
+
+    // --- KEYBOARD SUPPORT ---
+    inputBox.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") {
+        document.querySelector(".btn.equal").click();
+      }
+    });
+
+    // --- CONSTANTS BUTTON ---
+    document.getElementById('btnConstants').onclick = function() {
+      let constList = '';
+      for (let key in constants) {
+        constList += `${key} = ${constants[key]}\n`;
+      }
+      alert('Constants:\n' + constList);
+    };
+
+    // --- DIFFERENTIATION BUTTON ---
+    document.getElementById('btnDiff').onclick = function() {
+      // Prompt for function and point
+      let funcStr = prompt("Enter function in x (e.g. x*x+2*x):", inputBox.value || "x*x");
+      if(!funcStr) return;
+      let x0 = parseFloat(prompt("At which x? (e.g. 2)", "2"));
+      if(isNaN(x0)) { outputBox.textContent = "Invalid point!"; return; }
+      let h = 1e-5;
+      try {
+        let f = x => eval(funcStr.replace(/x/g, `(${x})`));
+        let diff = (f(x0 + h) - f(x0 - h)) / (2 * h);
+        outputBox.textContent = "f'(" + x0 + ") ≈ " + diff.toFixed(8);
+        addToHistory(`d/dx[${funcStr}] at x=${x0}`, diff.toFixed(8));
+      } catch {
+        outputBox.textContent = "Invalid function!";
+      }
+    };
+
+    // --- INTEGRATION BUTTON ---
+    document.getElementById('btnInt').onclick = function() {
+      // Prompt for function and limits
+      let funcStr = prompt("Enter function in x (e.g. x*x+2*x):", inputBox.value || "x*x");
+      if(!funcStr) return;
+      let a = parseFloat(prompt("Lower limit a:", "0"));
+      let b = parseFloat(prompt("Upper limit b:", "1"));
+      if(isNaN(a) || isNaN(b)) { outputBox.textContent = "Invalid limits!"; return; }
+      let n = 1000;
+      try {
+        let f = x => eval(funcStr.replace(/x/g, `(${x})`));
+        let h = (b - a) / n;
+        let sum = 0.5 * (f(a) + f(b));
+        for(let i = 1; i < n; i++) sum += f(a + i * h);
+        let integ = sum * h;
+        outputBox.textContent = `∫[${a},${b}] ≈ ` + integ.toFixed(8);
+        addToHistory(`∫[${a},${b}] ${funcStr} dx`, integ.toFixed(8));
+      } catch {
+        outputBox.textContent = "Invalid function!";
+      }
+    };
+
+    // --- HISTORY ---
+    function addToHistory(expr, result) {
+      history.unshift(`${expr} = ${result}`);
+      if (history.length > 6) history.pop();
+      historyBox.innerHTML = history.map(x => `<div>${x}</div>`).join("");
     }
-  });
 
- 
-  function toRadians(deg) {
-    return deg * (Math.PI / 180);
-  }
-
-  function toDegrees(rad) {
-    return rad * (180 / Math.PI);
-  }
-</script>
-
-
+    // --- HELPERS ---
+    function toRadians(deg) { return deg * (Math.PI / 180); }
+    function toDegrees(rad) { return rad * (180 / Math.PI); }
+    function factorial(n) {
+      if (n < 0 || n % 1 !== 0) return NaN;
+      if (n === 0) return 1;
+      let res = 1;
+      for (let i = 1; i <= n; i++) res *= i;
+      return res;
+    }
+  </script>
 </body>
 </html>
