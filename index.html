@@ -155,7 +155,7 @@
     <div class="history" id="history"></div>
   </div>
   <script>
-    // --- CONSTANTS ---
+   
     const constants = {
       'π (Pi)': Math.PI,
       'e (Euler)': Math.E,
@@ -167,7 +167,7 @@
       'k (Boltzmann)': 1.380649e-23
     };
 
-    // --- STATE ---
+    
     const inputBox = document.getElementById("inputNum");
     const outputBox = document.getElementById("outputNum");
     const historyBox = document.getElementById("history");
@@ -175,7 +175,7 @@
     let memory = 0;
     let history = [];
 
-    // --- BUTTON HANDLERS ---
+    
     document.querySelectorAll(".btn[data-value]").forEach(btn => {
       btn.addEventListener("click", () => {
         let val = btn.dataset.value;
@@ -191,7 +191,7 @@
       });
     });
 
-    // --- FUNCTION BUTTONS ---
+    
     document.querySelectorAll(".btn.func").forEach(btn => {
       btn.addEventListener("click", () => {
         let val = inputBox.value;
@@ -230,7 +230,7 @@
       });
     });
 
-    // --- MEMORY BUTTONS ---
+    
     document.querySelectorAll(".btn.mem").forEach(btn => {
       btn.addEventListener("click", () => {
         let op = btn.dataset.mem;
@@ -244,13 +244,13 @@
       });
     });
 
-    // --- CLEAR BUTTON ---
+   
     document.querySelector(".btn.clear").onclick = () => {
       inputBox.value = "";
       outputBox.textContent = "";
     };
 
-    // --- EQUAL BUTTON ---
+    
     document.querySelector(".btn.equal").onclick = () => {
       try {
         let expr = inputBox.value
@@ -272,14 +272,14 @@
       }
     };
 
-    // --- KEYBOARD SUPPORT ---
+    
     inputBox.addEventListener("keydown", (e) => {
       if (e.key === "Enter") {
         document.querySelector(".btn.equal").click();
       }
     });
 
-    // --- CONSTANTS BUTTON ---
+   
     document.getElementById('btnConstants').onclick = function() {
       let constList = '';
       for (let key in constants) {
@@ -288,7 +288,7 @@
       alert('Constants:\n' + constList);
     };
 
-    // --- DIFFERENTIATION BUTTON ---
+   
     document.getElementById('btnDiff').onclick = function() {
       // Prompt for function and point
       let funcStr = prompt("Enter function in x (e.g. x*x+2*x):", inputBox.value || "x*x");
@@ -306,7 +306,7 @@
       }
     };
 
-    // --- INTEGRATION BUTTON ---
+    
     document.getElementById('btnInt').onclick = function() {
       // Prompt for function and limits
       let funcStr = prompt("Enter function in x (e.g. x*x+2*x):", inputBox.value || "x*x");
@@ -328,14 +328,14 @@
       }
     };
 
-    // --- HISTORY ---
+    
     function addToHistory(expr, result) {
       history.unshift(`${expr} = ${result}`);
       if (history.length > 6) history.pop();
       historyBox.innerHTML = history.map(x => `<div>${x}</div>`).join("");
     }
 
-    // --- HELPERS ---
+    
     function toRadians(deg) { return deg * (Math.PI / 180); }
     function toDegrees(rad) { return rad * (180 / Math.PI); }
     function factorial(n) {
